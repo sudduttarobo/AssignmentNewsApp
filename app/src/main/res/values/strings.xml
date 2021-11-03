@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">DemoNews</string>
+    <string name="something_went_wrong_pls_try_again">Something went wrong. Please try again !!</string>
+    <string name="no_internet_msg">No Network Access</string>
+    <string name="popular_news">Popular News</string>
+    <string name="top_news">Top News</string>
+    <string name="news">NEWS</string>
+    <string name="global">Global</string>
+    <string name="bookmark_news">BookMark News</string>
+    <string name="cnn">CNN</string>
+    <string name="the_bombay_high_court_will_hear_aryan_khan_s_bail_application_today_after_the_special_court_rejected_his_plea_on_october_20_his_legal_team_led_by_satish_maneshinde_moved_the_high_court_which_agreed_to_hear_the_case_on_tuesday_october_26_as_per_the_latest">The Bombay High Court will hear Aryan Khan\'s bail application today. After the special court rejected his plea on October 20, his legal team led by Satish Maneshinde moved the high court, which agreed to hear the case on Tuesday, October 26. As per the latest…</string>
+    <string name="aryan_khan_case_live_updates_mukul_rohatgi_to_represent_srk_s_son_in_bombay_hc_ncb_ready_to_oppose_bail_plea_india_today">Aryan Khan case Live Updates: Mukul Rohatgi to represent SRK\'s son in Bombay HC, NCB ready to oppose bail plea - India Today</string>
+</resources>

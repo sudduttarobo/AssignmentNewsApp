@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.home.MainActivity">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.example.demonews.ui.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_60sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_globe"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_earth" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_toEndOf="@+id/img_globe"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.example.demonews.utility.TextViewLight
+                        android:id="@+id/tv_globe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/global"
+                        android:textColor="@color/gray" />
+
+                    <com.example.demonews.utility.TextViewBold
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/news"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12sdp" />
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="@dimen/_10sdp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_bookmark"
+                    android:layout_width="@dimen/_45sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_toStartOf="@+id/img_search"
+                    android:onClick="@{() -> viewmodel.goToBookmarkPage()}"
+                    android:src="@drawable/ic_bookmark"
+                    android:tint="@color/gray" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/img_search"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerInParent="true"
+                    android:onClick="@{() -> viewmodel.goToSearchPage()}"
+                    android:src="@drawable/ic_search"
+                    android:tint="@color/gray" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/gray" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rl_top">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/relativeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_10sdp">
+
+                        <com.example.demonews.utility.TextViewBold
+                            android:id="@+id/tv_top_news"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/top_news"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_13sdp" />
+
+                        <View
+                            android:id="@+id/view_one"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="1dp"
+                            android:layout_below="@+id/tv_top_news"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:background="@color/purple_500" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/img_top_news"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_200sdp"
+                            android:layout_below="@+id/view_one"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/ic_placeholder"
+                            app:mutableImage="@{viewmodel.strNewsImage}" />
+
+                        <com.example.demonews.utility.TextViewMedium
+                            android:id="@+id/tv_top_news_head"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_top_news"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_13sdp"
+                            app:mutableText="@{viewmodel.strNewsHead}" />
+
+                        <com.example.demonews.utility.TextViewLight
+                            android:id="@+id/tv_top_news_desc"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_top_news_head"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:lineSpacingExtra="1dp"
+                            android:onClick="@{() -> viewmodel.goToDetailsPage()}"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/_10sdp"
+                            app:mutableText="@{viewmodel.strNewsDesc}" />
+
+                        <com.example.demonews.utility.TextViewLight
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_top_news_desc"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/rectangle_gray"
+                            app:mutableText="@{viewmodel.strNewsSource}" />
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_below="@+id/tv_top_news_desc"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/circle_gray"
+                            android:src="@drawable/ic_bookmark" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/_10sdp">
+
+                        <com.example.demonews.utility.TextViewBold
+                            android:id="@+id/tv_popular_news"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/popular_news"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_13sdp" />
+
+                        <View
+                            android:id="@+id/view_two"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="1dp"
+                            android:layout_below="@+id/tv_popular_news"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:background="@color/purple_500" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_popular_news"
+                            android:layout_width="match_parent"
+                            tools:listitem="@layout/layout_single_news"
+                            tools:itemCount="5"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view_two"
+                            android:layout_marginTop="@dimen/_5sdp" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </ScrollView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#80000000"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:mutableVisibility="@{viewmodel.getLoadingVisibility()}">
+
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

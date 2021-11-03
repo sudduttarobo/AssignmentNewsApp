@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp">
+
+        <RelativeLayout
+            android:id="@+id/rl_first"
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_alignParentStart="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_single_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_placeholder" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_80sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_toEndOf="@+id/rl_first">
+
+            <com.example.demonews.utility.TextViewMedium
+                android:id="@+id/tv_news_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@string/aryan_khan_case_live_updates_mukul_rohatgi_to_represent_srk_s_son_in_bombay_hc_ncb_ready_to_oppose_bail_plea_india_today"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp" />
+
+            <com.example.demonews.utility.TextViewLight
+                android:id="@+id/tv_news_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_news_head"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:lineSpacingExtra="1dp"
+                android:maxLines="2"
+                android:text="@string/the_bombay_high_court_will_hear_aryan_khan_s_bail_application_today_after_the_special_court_rejected_his_plea_on_october_20_his_legal_team_led_by_satish_maneshinde_moved_the_high_court_which_agreed_to_hear_the_case_on_tuesday_october_26_as_per_the_latest"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_10sdp" />
+
+            <com.example.demonews.utility.TextViewLight
+                android:id="@+id/tv_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_news_desc"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/rectangle_gray"
+                android:text="@string/cnn" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_bookmark"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_below="@+id/tv_news_desc"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/circle_gray"
+                android:src="@drawable/ic_bookmark" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</layout>
