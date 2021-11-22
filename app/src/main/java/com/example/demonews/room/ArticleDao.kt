@@ -1,10 +1,12 @@
 package com.example.demonews.room
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.example.demonews.model.entity.Article
 
 @Dao
-interface BookmarkDAO {
-    @Query("SELECT * FROM NewsBookmarks")
+interface ArticleDao {
+    /*@Query("SELECT * FROM NewsBookmarks")
     fun getAll(): List<BookmarkTableModel>
 
 //    @Query("SELECT * FROM article")
@@ -23,5 +25,15 @@ interface BookmarkDAO {
     fun delete(vararg bookmarkTableModel: BookmarkTableModel)
 
     @Update
-    fun updateTodo(vararg bookmarkTableModel: BookmarkTableModel)
+    fun updateTodo(vararg bookmarkTableModel: BookmarkTableModel)*/
+
+    @Insert (onConflict = OnConflictStrategy.REPLACE)
+    suspend fun upsert(article: Article):Long
+
+    @Query("SELECT * FROM articles" )
+    fun getAllArticles(): LiveData<List<Article>>
+
+    @Delete
+    suspend fun deleteArticle(article: Article)
+
 }

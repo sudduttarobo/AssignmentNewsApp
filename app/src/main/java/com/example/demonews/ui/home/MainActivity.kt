@@ -13,9 +13,6 @@ import com.example.demonews.adapter.PopularNewsAdapter
 import com.example.demonews.databinding.ActivityMainBinding
 import com.example.demonews.interfaces.OnBookmarkClickListener
 import com.example.demonews.interfaces.OnPopularNewsClickListener
-import com.example.demonews.model.entity.Article
-import com.example.demonews.room.BookmarkDataBase
-import com.example.demonews.room.BookmarkTableModel
 import com.example.demonews.ui.bookmarkPage.BookmarkActivity
 import com.example.demonews.ui.detailsPage.NewsDetailsActivity
 import com.example.demonews.ui.searchPage.SearchActivity
@@ -27,8 +24,7 @@ class MainActivity : AppCompatActivity(), OnPopularNewsClickListener, OnBookmark
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var binding: ActivityMainBinding
-    
-    private lateinit var linearLayoutManager: LinearLayoutManager
+
     private lateinit var popularNewsAdapter: PopularNewsAdapter
 
    // private lateinit var bookmarkDataBase: BookmarkDataBase
@@ -64,7 +60,8 @@ class MainActivity : AppCompatActivity(), OnPopularNewsClickListener, OnBookmark
         })
 
         viewModel.pNewsList.observe(this, Observer {
-            popularNewsAdapter.setMovieList(it)
+            popularNewsAdapter.differ.submitList(it)
+
         })
 
 
@@ -106,14 +103,15 @@ class MainActivity : AppCompatActivity(), OnPopularNewsClickListener, OnBookmark
     }
 
     private fun initPopularRecycler() {
-        linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        binding.rvPopularNews.layoutManager = linearLayoutManager
-        popularNewsAdapter = PopularNewsAdapter(this)
+        popularNewsAdapter = PopularNewsAdapter()
+        binding.rvPopularNews.apply {
+            adapter=popularNewsAdapter
+            layoutManager=LinearLayoutManager(this@MainActivity)
+            isNestedScrollingEnabled=false
+            addItemDecoration(SimpleDividerItemDecorationMenu(this@MainActivity))
+        }
         popularNewsAdapter.setOnNewsItemClickListener(this)
         popularNewsAdapter.setOnBookmarkClickListener(this)
-        binding.rvPopularNews.adapter = popularNewsAdapter
-        binding.rvPopularNews.isNestedScrollingEnabled = false
-        binding.rvPopularNews.addItemDecoration(SimpleDividerItemDecorationMenu(this))
     }
 
     override fun onNewsItemClick(news_url: String) {
@@ -130,13 +128,13 @@ class MainActivity : AppCompatActivity(), OnPopularNewsClickListener, OnBookmark
         source_name: String,
         news_url: String
     ) {
-        val bookmark = BookmarkTableModel(
-            title = title,
-            desc = description,
-            image = image_link,
-            source = source_name,
-            urlNews = news_url
-        )
+//        val bookmark = BookmarkTableModel(
+//            title = title,
+//            desc = description,
+//            image = image_link,
+//            source = source_name,
+//            urlNews = news_url
+//        )
      //   bookmarkDataBase.bookmarkDao().insertAll(bookmark)
     }
 

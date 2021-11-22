@@ -11,12 +11,12 @@ import com.example.demonews.R
 import com.example.demonews.databinding.LayoutSingleNewsBinding
 import com.example.demonews.interfaces.OnBookmarkClickListener
 import com.example.demonews.interfaces.OnPopularNewsClickListener
-import com.example.demonews.room.BookmarkTableModel
+import com.example.demonews.model.entity.Article
 import java.util.*
 
 class BookmarkNewsAdapter (
     private val context: Context,
-    private val arrayList: ArrayList<BookmarkTableModel>
+    private val arrayList: ArrayList<Article>
 ) :
     RecyclerView.Adapter<BookmarkNewsAdapter.ViewHolder>() {
 
@@ -28,7 +28,7 @@ class BookmarkNewsAdapter (
 
         try {
             Glide.with(context)
-                .load(arrayList[position].image)
+                .load(arrayList[position].urlToImage)
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_placeholder)
                 .into(holder.binding.ivSingleImage)
@@ -38,16 +38,16 @@ class BookmarkNewsAdapter (
         }
 
         holder.binding.tvNewsHead.text = arrayList[position].title
-        holder.binding.tvNewsDesc.text = arrayList[position].desc
-        holder.binding.tvSource.text = arrayList[position].source
+        holder.binding.tvNewsDesc.text = arrayList[position].description
+        holder.binding.tvSource.text = arrayList[position].source.name
 
         holder.binding.ivBookmark.setOnClickListener {
             onBookmarkClickListener.onBookmarkClicked(
                 arrayList[position].title,
-                arrayList[position].desc,
-                arrayList[position].image,
-                arrayList[position].source,
-                arrayList[position].urlNews
+                arrayList[position].description,
+                arrayList[position].urlToImage,
+                arrayList[position].source.name,
+                arrayList[position].url
             )
         }
 
@@ -77,7 +77,7 @@ class BookmarkNewsAdapter (
 
         override fun onClick(view: View?) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                onPopularNewsClickListener.onNewsItemClick(arrayList[layoutPosition].urlNews)
+              //  onPopularNewsClickListener.onNewsItemClick(arrayList[layoutPosition].urlNews)
             }
         }
 

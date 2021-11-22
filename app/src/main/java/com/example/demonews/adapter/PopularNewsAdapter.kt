@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.demonews.R
@@ -14,58 +16,75 @@ import com.example.demonews.interfaces.OnPopularNewsClickListener
 import com.example.demonews.model.entity.Article
 import kotlin.collections.ArrayList
 
-class PopularNewsAdapter(
-    private val context: Context
-) :
-    RecyclerView.Adapter<PopularNewsAdapter.ViewHolder>() {
+class PopularNewsAdapter() : RecyclerView.Adapter<PopularNewsAdapter.ViewHolder>() {
 
     private lateinit var onPopularNewsClickListener: OnPopularNewsClickListener
     private lateinit var onBookmarkClickListener: OnBookmarkClickListener
 
-    private var arrayList = mutableListOf<Article>()
+//    private var arrayList = mutableListOf<Article>()
+//
+//    fun setMovieList(movies: List<Article>) {
+//        this.arrayList = movies.toMutableList()
+//        notifyDataSetChanged()
+//    }
 
-    fun setMovieList(movies: List<Article>) {
-        this.arrayList = movies.toMutableList()
-        notifyDataSetChanged()
+    private val differCallBack=object :DiffUtil.ItemCallback<Article>(){
+        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+            return oldItem.url==newItem.url
+        }
+
+        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+           return oldItem==newItem
+        }
+
     }
+
+    val differ =AsyncListDiffer(this,differCallBack)
+
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        try {
-            Glide.with(context)
-                .load(arrayList[position].urlToImage)
-                .placeholder(R.drawable.ic_placeholder)
-                .error(R.drawable.ic_placeholder)
-                .into(holder.binding.ivSingleImage)
+        val article= differ.currentList[position]
 
-        } catch (e: Exception) {
-            e.printStackTrace()
+        holder.itemView.apply {
+
+
+            try {
+                Glide.with(this)
+                        .load(article.urlToImage)
+                        .placeholder(R.drawable.ic_placeholder)
+                        .error(R.drawable.ic_placeholder)
+                        .into(holder.binding.ivSingleImage)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            holder.binding.tvNewsHead.text = article.title
+            holder.binding.tvNewsDesc.text = article.description
+            holder.binding.tvSource.text = article.source.name
+
+            holder.binding.ivBookmark.setOnClickListener {
+                onBookmarkClickListener.onBookmarkClicked(
+                        article.title,
+                        article.description,
+                        article.urlToImage,
+                        article.source.name,
+                        article.url
+                )
+            }
+
         }
-
-        holder.binding.tvNewsHead.text = arrayList[position].title
-        holder.binding.tvNewsDesc.text = arrayList[position].description
-        holder.binding.tvSource.text = arrayList[position].source.name
-
-        holder.binding.ivBookmark.setOnClickListener {
-            onBookmarkClickListener.onBookmarkClicked(
-                arrayList[position].title,
-                arrayList[position].description,
-                arrayList[position].urlToImage,
-                arrayList[position].source.name,
-                arrayList[position].url
-            )
-        }
-
-
     }
 
     override fun getItemCount(): Int {
-        return arrayList.size
+        return differ.currentList.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding: LayoutSingleNewsBinding = DataBindingUtil.inflate(
-            LayoutInflater.from(context),
+            LayoutInflater.from(parent.context),
             R.layout.layout_single_news, parent, false
         )
 
@@ -82,7 +101,7 @@ class PopularNewsAdapter(
 
         override fun onClick(view: View?) {
             if (layoutPosition != RecyclerView.NO_POSITION) {
-                onPopularNewsClickListener.onNewsItemClick(arrayList[layoutPosition].url)
+                onPopularNewsClickListener.onNewsItemClick(differ.currentList[layoutPosition].url)
             }
         }
 

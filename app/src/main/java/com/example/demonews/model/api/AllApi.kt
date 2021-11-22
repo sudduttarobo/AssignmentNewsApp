@@ -17,28 +17,34 @@ import java.util.concurrent.TimeUnit
 interface AllApi {
 
     companion object {
-        fun create(context: Context): AllApi {
+     //   fun create(context: Context): AllApi {
 
-            val interceptor = HttpLoggingInterceptor()
-            interceptor.level = HttpLoggingInterceptor.Level.BODY
-            val gson = GsonBuilder()
-                .setLenient()
-                .create()
-            val client = OkHttpClient.Builder()
-                .connectTimeout(1, TimeUnit.MINUTES)
-                .writeTimeout(1, TimeUnit.MINUTES)
-                .readTimeout(1, TimeUnit.MINUTES)
-                .addInterceptor(interceptor)
-                .build()
-            val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .client(client)
-                .baseUrl(BASE_URL)
-                .build()
+            private val retrofit by lazy {
 
-            return retrofit.create(AllApi::class.java)
+
+                val interceptor = HttpLoggingInterceptor()
+                interceptor.level = HttpLoggingInterceptor.Level.BODY
+                val gson = GsonBuilder()
+                        .setLenient()
+                        .create()
+                val client = OkHttpClient.Builder()
+                        .connectTimeout(1, TimeUnit.MINUTES)
+                        .writeTimeout(1, TimeUnit.MINUTES)
+                        .readTimeout(1, TimeUnit.MINUTES)
+                        .addInterceptor(interceptor)
+                        .build()
+                Retrofit.Builder()
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .client(client)
+                        .baseUrl(BASE_URL)
+                        .build()
+            }
+        val api by lazy {
+            retrofit.create(AllApi::class.java)
         }
+
+      //  }
     }
 
 

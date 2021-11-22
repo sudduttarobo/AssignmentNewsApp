@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.demonews.R
 import com.example.demonews.adapter.BookmarkNewsAdapter
 import com.example.demonews.databinding.ActivityBookmarkBinding
-import com.example.demonews.room.BookmarkDataBase
-import com.example.demonews.room.BookmarkTableModel
+import com.example.demonews.model.entity.Article
 import com.example.demonews.utility.SimpleDividerItemDecorationMenu
 import java.util.ArrayList
 
@@ -18,7 +17,7 @@ class BookmarkActivity : AppCompatActivity() {
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var bookmarkNewsAdapter: BookmarkNewsAdapter
    // private lateinit var bookmarkDataBase: BookmarkDataBase
-    private lateinit var dataArrayList: ArrayList<BookmarkTableModel>
+    private lateinit var dataArrayList: ArrayList<Article>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +31,7 @@ class BookmarkActivity : AppCompatActivity() {
     }
 
     private fun initBookmarkRecycler() {
-        dataArrayList = ArrayList<BookmarkTableModel>()
+        dataArrayList = ArrayList<Article>()
         linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rvBookmarkList.layoutManager = linearLayoutManager
         bookmarkNewsAdapter = BookmarkNewsAdapter(this, dataArrayList)

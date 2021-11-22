@@ -16,7 +16,8 @@
         android:theme="@style/Theme.DemoNews">
         <activity android:name=".ui.bookmarkPage.BookmarkActivity" />
         <activity android:name=".ui.searchPage.SearchActivity" />
-        <activity android:name=".ui.detailsPage.NewsDetailsActivity" />
+        <activity android:name=".ui.detailsPage.NewsDetailsActivity"
+            android:launchMode="singleInstance"/>
         <activity android:name=".ui.home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
